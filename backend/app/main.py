@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.api.routes_articles import router as article_router
+from app.api.routes_issues import router as issue_router
 
 app = FastAPI(
     title="Silly Point API",
@@ -9,6 +10,7 @@ app = FastAPI(
 )
 
 app.include_router(article_router)
+app.include_router(issue_router)
 
 
 @app.get("/health")
