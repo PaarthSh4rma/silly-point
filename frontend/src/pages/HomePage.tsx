@@ -83,7 +83,7 @@ export function HomePage() {
     <main className={getPageClassName(themeMode)}>
       <PitchBackground themeMode={themeMode} />
 
-      <div className="relative mx-auto min-h-screen max-w-7xl px-5 py-6 sm:px-6 lg:px-8">
+      <div className="relative mx-auto min-h-screen w-full max-w-7xl px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
         <TopNav
           themeMode={themeMode}
           onToggleTheme={() =>
@@ -93,7 +93,7 @@ export function HomePage() {
 
         <HeroSection issue={issue} themeMode={themeMode} />
 
-        <section id="latest" className="mt-8">
+        <section id="latest" className="mt-6 sm:mt-8">
           {isLoading && (
             <SurfaceCard themeMode={themeMode}>
               <p className={getMutedTextClassName(themeMode)}>
@@ -106,8 +106,8 @@ export function HomePage() {
             <div
               className={
                 themeMode === "dark"
-                  ? "rounded-[2rem] border border-amber-300/30 bg-amber-300/10 p-7 text-amber-100 shadow-2xl"
-                  : "rounded-[2rem] border border-amber-300 bg-amber-50 p-7 text-amber-900 shadow-sm"
+                  ? "rounded-3xl border border-amber-300/30 bg-amber-300/10 p-5 text-sm text-amber-100 shadow-2xl sm:p-7 sm:text-base"
+                  : "rounded-3xl border border-amber-300 bg-amber-50 p-5 text-sm text-amber-900 shadow-sm sm:p-7 sm:text-base"
               }
             >
               {errorMessage}
@@ -137,48 +137,51 @@ function TopNav({
   themeMode: ThemeMode;
   onToggleTheme: () => void;
 }) {
-return (
-  <nav
-    className={
-      themeMode === "dark"
-        ? "sticky top-0 z-50 mb-6 flex items-center justify-between rounded-full border border-white/10 bg-slate-950/75 px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-xl"
-        : "sticky top-0 z-50 mb-6 flex items-center justify-between rounded-full border border-slate-200 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-xl"
-    }
-  >
-    <a href="#" className="flex items-center gap-3">
-      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-500 text-lg font-black text-slate-950 shadow-lg shadow-emerald-500/20">
-        SP
-      </div>
-
-      <div>
-        <p
-          className={
-            themeMode === "dark"
-              ? "text-sm font-black uppercase tracking-[0.3em] text-emerald-300"
-              : "text-sm font-black uppercase tracking-[0.3em] text-emerald-700"
-          }
-        >
-          Silly Point
-        </p>
-        <p className={getMutedTextClassName(themeMode)}>
-          The Daily Yorker
-        </p>
-      </div>
-    </a>
-
-    <button
-      type="button"
-      onClick={onToggleTheme}
+  return (
+    <nav
       className={
         themeMode === "dark"
-          ? "rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/10"
-          : "rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-950 shadow-sm transition hover:border-slate-400"
+          ? "sticky top-3 z-50 mb-5 flex items-center justify-between gap-3 rounded-3xl border border-white/10 bg-slate-950/80 px-3 py-3 shadow-2xl shadow-black/20 backdrop-blur-xl sm:top-4 sm:mb-6 sm:rounded-full sm:px-4"
+          : "sticky top-3 z-50 mb-5 flex items-center justify-between gap-3 rounded-3xl border border-slate-200 bg-white/85 px-3 py-3 shadow-sm backdrop-blur-xl sm:top-4 sm:mb-6 sm:rounded-full sm:px-4"
       }
     >
-      {themeMode === "dark" ? "Light mode" : "Dark mode"}
-    </button>
-  </nav>
-);
+      <a href="#" className="flex min-w-0 items-center gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-sm font-black text-slate-950 shadow-lg shadow-emerald-500/20 sm:h-11 sm:w-11 sm:text-lg">
+          SP
+        </div>
+
+        <div className="min-w-0">
+          <p
+            className={
+              themeMode === "dark"
+                ? "truncate text-xs font-black uppercase tracking-[0.2em] text-emerald-300 sm:text-sm sm:tracking-[0.3em]"
+                : "truncate text-xs font-black uppercase tracking-[0.2em] text-emerald-700 sm:text-sm sm:tracking-[0.3em]"
+            }
+          >
+            Silly Point
+          </p>
+          <p className={`truncate text-xs sm:text-sm ${getMutedTextClassName(themeMode)}`}>
+            The Daily Yorker
+          </p>
+        </div>
+      </a>
+
+      <button
+        type="button"
+        onClick={onToggleTheme}
+        className={
+          themeMode === "dark"
+            ? "shrink-0 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-bold text-white transition hover:bg-white/10 sm:px-4 sm:text-sm"
+            : "shrink-0 rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-950 shadow-sm transition hover:border-slate-400 sm:px-4 sm:text-sm"
+        }
+      >
+        <span className="sm:hidden">{themeMode === "dark" ? "Light" : "Dark"}</span>
+        <span className="hidden sm:inline">
+          {themeMode === "dark" ? "Light mode" : "Dark mode"}
+        </span>
+      </button>
+    </nav>
+  );
 }
 
 function HeroSection({
@@ -201,13 +204,13 @@ function HeroSection({
     <section
       className={
         themeMode === "dark"
-          ? "overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/80 shadow-2xl shadow-black/30 backdrop-blur"
-          : "overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm"
+          ? "overflow-hidden rounded-3xl border border-white/10 bg-slate-950/80 shadow-2xl shadow-black/30 backdrop-blur sm:rounded-[2rem]"
+          : "overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm sm:rounded-[2rem]"
       }
     >
       <div className="grid gap-0 lg:grid-cols-[1.35fr_0.65fr]">
-        <div className="p-8 md:p-10 lg:p-12">
-          <div className="mb-5 flex flex-wrap items-center gap-3">
+        <div className="p-6 sm:p-8 md:p-10 lg:p-12">
+          <div className="mb-5 flex flex-wrap items-center gap-2 sm:gap-3">
             <Badge themeMode={themeMode}>Daily cricket brief</Badge>
             <Badge themeMode={themeMode}>No doomscrolling</Badge>
           </div>
@@ -215,8 +218,8 @@ function HeroSection({
           <h1
             className={
               themeMode === "dark"
-                ? "max-w-4xl text-5xl font-black tracking-tight text-white md:text-7xl"
-                : "max-w-4xl text-5xl font-black tracking-tight text-slate-950 md:text-7xl"
+                ? "max-w-4xl text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+                : "max-w-4xl text-4xl font-black tracking-tight text-slate-950 sm:text-5xl md:text-6xl lg:text-7xl"
             }
           >
             Cricket news, caught daily.
@@ -225,8 +228,8 @@ function HeroSection({
           <p
             className={
               themeMode === "dark"
-                ? "mt-6 max-w-3xl text-lg leading-8 text-slate-300 md:text-xl"
-                : "mt-6 max-w-3xl text-lg leading-8 text-slate-600 md:text-xl"
+                ? "mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:mt-6 sm:text-lg sm:leading-8 md:text-xl"
+                : "mt-5 max-w-3xl text-base leading-7 text-slate-600 sm:mt-6 sm:text-lg sm:leading-8 md:text-xl"
             }
           >
             A premium daily cricket dispatch covering the stories that matter:
@@ -234,10 +237,10 @@ function HeroSection({
             the grounds.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-7 grid gap-3 sm:mt-8 sm:flex sm:flex-wrap">
             <a
               href="#latest"
-              className="rounded-full bg-emerald-500 px-6 py-3 text-sm font-black text-slate-950 shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-400"
+              className="w-full rounded-full bg-emerald-500 px-6 py-3 text-center text-sm font-black text-slate-950 shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-400 sm:w-auto"
             >
               Read today's dispatch
             </a>
@@ -246,8 +249,8 @@ function HeroSection({
               href="#subscribe"
               className={
                 themeMode === "dark"
-                  ? "rounded-full border border-white/15 px-6 py-3 text-sm font-black text-white transition hover:bg-white/10"
-                  : "rounded-full border border-slate-300 px-6 py-3 text-sm font-black text-slate-950 transition hover:border-slate-950"
+                  ? "w-full rounded-full border border-white/15 px-6 py-3 text-center text-sm font-black text-white transition hover:bg-white/10 sm:w-auto"
+                  : "w-full rounded-full border border-slate-300 px-6 py-3 text-center text-sm font-black text-slate-950 transition hover:border-slate-950 sm:w-auto"
               }
             >
               Subscribe
@@ -258,21 +261,21 @@ function HeroSection({
         <aside
           className={
             themeMode === "dark"
-              ? "border-t border-white/10 bg-emerald-400/10 p-8 lg:border-l lg:border-t-0 lg:p-10"
-              : "border-t border-slate-200 bg-emerald-50 p-8 lg:border-l lg:border-t-0 lg:p-10"
+              ? "border-t border-white/10 bg-emerald-400/10 p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10"
+              : "border-t border-slate-200 bg-emerald-50 p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10"
           }
         >
           <p
             className={
               themeMode === "dark"
-                ? "text-sm font-black uppercase tracking-[0.3em] text-emerald-300"
-                : "text-sm font-black uppercase tracking-[0.3em] text-emerald-700"
+                ? "text-xs font-black uppercase tracking-[0.25em] text-emerald-300 sm:text-sm sm:tracking-[0.3em]"
+                : "text-xs font-black uppercase tracking-[0.25em] text-emerald-700 sm:text-sm sm:tracking-[0.3em]"
             }
           >
             Match report
           </p>
 
-          <div className="mt-7 space-y-4">
+          <div className="mt-5 grid gap-3 sm:mt-7 sm:grid-cols-3 lg:grid-cols-1 lg:space-y-1">
             <StatCard
               label="Latest issue"
               value={issue?.issue_date ?? "Pending"}
@@ -306,22 +309,22 @@ function LatestIssue({
     <article
       className={
         themeMode === "dark"
-          ? "rounded-[2rem] border border-white/10 bg-slate-950/80 p-7 shadow-2xl shadow-black/30 backdrop-blur md:p-10"
-          : "rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm md:p-10"
+          ? "rounded-3xl border border-white/10 bg-slate-950/80 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:rounded-[2rem] sm:p-7 md:p-10"
+          : "rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:rounded-[2rem] sm:p-7 md:p-10"
       }
     >
       <header
         className={
           themeMode === "dark"
-            ? "border-b border-white/10 pb-8"
-            : "border-b border-slate-200 pb-8"
+            ? "border-b border-white/10 pb-6 sm:pb-8"
+            : "border-b border-slate-200 pb-6 sm:pb-8"
         }
       >
         <p
           className={
             themeMode === "dark"
-              ? "text-sm font-black uppercase tracking-[0.35em] text-emerald-300"
-              : "text-sm font-black uppercase tracking-[0.35em] text-emerald-700"
+              ? "text-xs font-black uppercase tracking-[0.25em] text-emerald-300 sm:text-sm sm:tracking-[0.35em]"
+              : "text-xs font-black uppercase tracking-[0.25em] text-emerald-700 sm:text-sm sm:tracking-[0.35em]"
           }
         >
           {issue.issue_date}
@@ -330,38 +333,38 @@ function LatestIssue({
         <h2
           className={
             themeMode === "dark"
-              ? "mt-4 text-4xl font-black tracking-tight text-white md:text-5xl"
-              : "mt-4 text-4xl font-black tracking-tight text-slate-950 md:text-5xl"
+              ? "mt-3 text-3xl font-black tracking-tight text-white sm:mt-4 sm:text-4xl md:text-5xl"
+              : "mt-3 text-3xl font-black tracking-tight text-slate-950 sm:mt-4 sm:text-4xl md:text-5xl"
           }
         >
           {issue.title}
         </h2>
 
-        <p className={`mt-3 text-lg ${getMutedTextClassName(themeMode)}`}>
+        <p className={`mt-3 text-base sm:text-lg ${getMutedTextClassName(themeMode)}`}>
           {issue.tagline}
         </p>
       </header>
 
-      <div className="mt-10 space-y-12">
+      <div className="mt-8 space-y-10 sm:mt-10 sm:space-y-12">
         {issue.sections.map((section, sectionIndex) => (
           <section key={section.name}>
-            <div className="mb-5 flex items-start gap-4">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-sm font-black text-slate-950">
+            <div className="mb-5 flex items-start gap-3 sm:gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-sm font-black text-slate-950 sm:h-11 sm:w-11">
                 {sectionIndex + 1}
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <h3
                   className={
                     themeMode === "dark"
-                      ? "text-3xl font-black tracking-tight text-white"
-                      : "text-3xl font-black tracking-tight text-slate-950"
+                      ? "text-2xl font-black tracking-tight text-white sm:text-3xl"
+                      : "text-2xl font-black tracking-tight text-slate-950 sm:text-3xl"
                   }
                 >
                   {section.name}
                 </h3>
 
-                <p className={`mt-2 ${getMutedTextClassName(themeMode)}`}>
+                <p className={`mt-1 text-sm sm:mt-2 sm:text-base ${getMutedTextClassName(themeMode)}`}>
                   {section.description}
                 </p>
               </div>
@@ -371,14 +374,14 @@ function LatestIssue({
               <div
                 className={
                   themeMode === "dark"
-                    ? "rounded-2xl border border-dashed border-white/15 p-5 text-sm text-slate-400"
-                    : "rounded-2xl border border-dashed border-slate-300 p-5 text-sm text-slate-500"
+                    ? "rounded-2xl border border-dashed border-white/15 p-4 text-sm text-slate-400 sm:p-5"
+                    : "rounded-2xl border border-dashed border-slate-300 p-4 text-sm text-slate-500 sm:p-5"
                 }
               >
                 No stories in this section yet.
               </div>
             ) : (
-              <div className="grid gap-4">
+              <div className="grid gap-3 sm:gap-4">
                 {section.articles.map((article, articleIndex) => (
                   <ArticleCard
                     key={article.id}
@@ -412,20 +415,20 @@ function ArticleCard({
       rel="noreferrer"
       className={
         themeMode === "dark"
-          ? "group grid gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-emerald-400/60 hover:bg-emerald-400/10 md:grid-cols-[3rem_1fr]"
-          : "group grid gap-4 rounded-3xl border border-slate-200 bg-white p-5 transition hover:border-emerald-400 hover:bg-emerald-50/70 md:grid-cols-[3rem_1fr]"
+          ? "group grid gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-emerald-400/60 hover:bg-emerald-400/10 sm:p-5 md:grid-cols-[3rem_1fr]"
+          : "group grid gap-4 rounded-3xl border border-slate-200 bg-white p-4 transition hover:border-emerald-400 hover:bg-emerald-50/70 sm:p-5 md:grid-cols-[3rem_1fr]"
       }
     >
-      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/15 text-sm font-black text-emerald-500">
+      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500/15 text-sm font-black text-emerald-500 sm:h-12 sm:w-12">
         {articleIndex + 1}
       </div>
 
-      <div>
+      <div className="min-w-0">
         <div
           className={
             themeMode === "dark"
-              ? "mb-3 flex flex-wrap items-center gap-2 text-xs font-black uppercase tracking-wide text-slate-400"
-              : "mb-3 flex flex-wrap items-center gap-2 text-xs font-black uppercase tracking-wide text-slate-500"
+              ? "mb-3 flex flex-wrap items-center gap-2 text-[0.68rem] font-black uppercase tracking-wide text-slate-400 sm:text-xs"
+              : "mb-3 flex flex-wrap items-center gap-2 text-[0.68rem] font-black uppercase tracking-wide text-slate-500 sm:text-xs"
           }
         >
           <span>{article.source}</span>
@@ -448,15 +451,17 @@ function ArticleCard({
         <h4
           className={
             themeMode === "dark"
-              ? "text-xl font-black leading-snug text-white group-hover:text-emerald-300"
-              : "text-xl font-black leading-snug text-slate-950 group-hover:text-emerald-800"
+              ? "text-lg font-black leading-snug text-white group-hover:text-emerald-300 sm:text-xl"
+              : "text-lg font-black leading-snug text-slate-950 group-hover:text-emerald-800 sm:text-xl"
           }
         >
           {article.title}
         </h4>
 
         {article.summary && (
-          <p className={`mt-3 line-clamp-3 text-sm leading-6 ${getMutedTextClassName(themeMode)}`}>
+          <p
+            className={`mt-3 line-clamp-4 text-sm leading-6 sm:line-clamp-3 ${getMutedTextClassName(themeMode)}`}
+          >
             {stripHtml(article.summary)}
           </p>
         )}
@@ -497,15 +502,15 @@ function SubscribeSection({
       id="subscribe"
       className={
         themeMode === "dark"
-          ? "mt-8 overflow-hidden rounded-[2rem] border border-emerald-400/20 bg-emerald-400/10 p-8 shadow-2xl shadow-black/20 md:p-10"
-          : "mt-8 overflow-hidden rounded-[2rem] border border-emerald-200 bg-emerald-50 p-8 shadow-sm md:p-10"
+          ? "mt-6 overflow-hidden rounded-3xl border border-emerald-400/20 bg-emerald-400/10 p-6 shadow-2xl shadow-black/20 sm:mt-8 sm:rounded-[2rem] sm:p-8 md:p-10"
+          : "mt-6 overflow-hidden rounded-3xl border border-emerald-200 bg-emerald-50 p-6 shadow-sm sm:mt-8 sm:rounded-[2rem] sm:p-8 md:p-10"
       }
     >
       <p
         className={
           themeMode === "dark"
-            ? "mb-3 text-sm font-black uppercase tracking-[0.3em] text-emerald-300"
-            : "mb-3 text-sm font-black uppercase tracking-[0.3em] text-emerald-700"
+            ? "mb-3 text-xs font-black uppercase tracking-[0.25em] text-emerald-300 sm:text-sm sm:tracking-[0.3em]"
+            : "mb-3 text-xs font-black uppercase tracking-[0.25em] text-emerald-700 sm:text-sm sm:tracking-[0.3em]"
         }
       >
         Newsletter
@@ -514,21 +519,23 @@ function SubscribeSection({
       <h2
         className={
           themeMode === "dark"
-            ? "text-3xl font-black tracking-tight text-white md:text-4xl"
-            : "text-3xl font-black tracking-tight text-slate-950 md:text-4xl"
+            ? "text-3xl font-black tracking-tight text-white sm:text-4xl"
+            : "text-3xl font-black tracking-tight text-slate-950 sm:text-4xl"
         }
       >
         Get The Daily Yorker
       </h2>
 
-      <p className={`mt-3 max-w-2xl text-lg leading-8 ${getMutedTextClassName(themeMode)}`}>
+      <p
+        className={`mt-3 max-w-2xl text-base leading-7 sm:text-lg sm:leading-8 ${getMutedTextClassName(themeMode)}`}
+      >
         Daily cricket stories in your inbox. No noise, no doomscrolling, just
         the day’s cricket in five minutes.
       </p>
 
       <form
         onSubmit={handleSubscribe}
-        className="mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row"
+        className="mt-6 grid max-w-2xl gap-3 sm:mt-8 sm:grid-cols-[1fr_auto]"
       >
         <input
           type="email"
@@ -538,15 +545,15 @@ function SubscribeSection({
           placeholder="you@example.com"
           className={
             themeMode === "dark"
-              ? "min-h-14 flex-1 rounded-full border border-white/10 bg-white px-6 text-base text-slate-950 outline-none placeholder:text-slate-400"
-              : "min-h-14 flex-1 rounded-full border border-slate-200 bg-white px-6 text-base text-slate-950 outline-none placeholder:text-slate-400"
+              ? "min-h-14 w-full rounded-full border border-white/10 bg-white px-5 text-base text-slate-950 outline-none placeholder:text-slate-400 sm:px-6"
+              : "min-h-14 w-full rounded-full border border-slate-200 bg-white px-5 text-base text-slate-950 outline-none placeholder:text-slate-400 sm:px-6"
           }
         />
 
         <button
           type="submit"
           disabled={isSubscribing}
-          className="min-h-14 rounded-full bg-emerald-500 px-8 font-black text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-70"
+          className="min-h-14 w-full rounded-full bg-emerald-500 px-8 font-black text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
         >
           {isSubscribing ? "Subscribing..." : "Subscribe"}
         </button>
@@ -572,8 +579,8 @@ function SurfaceCard({
     <div
       className={
         themeMode === "dark"
-          ? "rounded-[2rem] border border-white/10 bg-slate-950/80 p-7 shadow-2xl shadow-black/30"
-          : "rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm"
+          ? "rounded-3xl border border-white/10 bg-slate-950/80 p-5 shadow-2xl shadow-black/30 sm:rounded-[2rem] sm:p-7"
+          : "rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:rounded-[2rem] sm:p-7"
       }
     >
       {children}
@@ -592,8 +599,8 @@ function Badge({
     <span
       className={
         themeMode === "dark"
-          ? "rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-black uppercase tracking-wide text-emerald-300"
-          : "rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-black uppercase tracking-wide text-emerald-700"
+          ? "rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[0.65rem] font-black uppercase tracking-wide text-emerald-300 sm:text-xs"
+          : "rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[0.65rem] font-black uppercase tracking-wide text-emerald-700 sm:text-xs"
       }
     >
       {children}
@@ -614,16 +621,18 @@ function StatCard({
     <div
       className={
         themeMode === "dark"
-          ? "rounded-3xl border border-white/10 bg-white/[0.04] p-5"
-          : "rounded-3xl border border-emerald-100 bg-white p-5"
+          ? "rounded-3xl border border-white/10 bg-white/[0.04] p-4 sm:p-5"
+          : "rounded-3xl border border-emerald-100 bg-white p-4 sm:p-5"
       }
     >
-      <p className={getMutedTextClassName(themeMode)}>{label}</p>
+      <p className={`text-xs sm:text-sm ${getMutedTextClassName(themeMode)}`}>
+        {label}
+      </p>
       <p
         className={
           themeMode === "dark"
-            ? "mt-2 text-2xl font-black text-white"
-            : "mt-2 text-2xl font-black text-slate-950"
+            ? "mt-2 break-words text-xl font-black text-white sm:text-2xl"
+            : "mt-2 break-words text-xl font-black text-slate-950 sm:text-2xl"
         }
       >
         {value}
@@ -646,8 +655,8 @@ function PitchBackground({ themeMode }: { themeMode: ThemeMode }) {
       <div
         className={
           themeMode === "dark"
-            ? "absolute inset-0 opacity-[0.08] [background-image:linear-gradient(90deg,white_1px,transparent_1px),linear-gradient(0deg,white_1px,transparent_1px)] [background-size:72px_72px]"
-            : "absolute inset-0 opacity-[0.22] [background-image:linear-gradient(90deg,#0f172a_1px,transparent_1px),linear-gradient(0deg,#0f172a_1px,transparent_1px)] [background-size:72px_72px]"
+            ? "absolute inset-0 opacity-[0.08] [background-image:linear-gradient(90deg,white_1px,transparent_1px),linear-gradient(0deg,white_1px,transparent_1px)] [background-size:56px_56px] sm:[background-size:72px_72px]"
+            : "absolute inset-0 opacity-[0.18] [background-image:linear-gradient(90deg,#0f172a_1px,transparent_1px),linear-gradient(0deg,#0f172a_1px,transparent_1px)] [background-size:56px_56px] sm:[background-size:72px_72px]"
         }
       />
     </div>
