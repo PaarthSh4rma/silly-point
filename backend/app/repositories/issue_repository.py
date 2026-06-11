@@ -68,9 +68,18 @@ class IssueRepository:
     def to_read_schema(self, issue: IssueModel) -> IssueRead:
         grouped_sections: dict[str, dict] = {}
 
+        section_order = {
+            "Opening Spell": 1,
+            "Powerplay": 2,
+            "Around the Grounds": 3,
+        }
+
         sorted_links = sorted(
             issue.articles,
-            key=lambda link: (link.section_name, link.rank),
+            key=lambda link: (
+                section_order.get(link.section_name, 999),
+                link.rank,
+            ),
         )
 
         article_ids = [link.article_id for link in sorted_links]
