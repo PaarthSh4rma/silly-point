@@ -48,3 +48,11 @@ class ArticleRepository:
             .limit(limit)
             .all()
         )
+    
+    def get_latest_models(self, limit: int = 50) -> list[ArticleModel]:
+        return (
+            self.db.query(ArticleModel)
+            .order_by(ArticleModel.published_at.desc().nullslast(), ArticleModel.created_at.desc())
+            .limit(limit)
+            .all()
+        )

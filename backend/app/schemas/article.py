@@ -9,3 +9,7 @@ class Article(BaseModel):
     published_at: datetime | None = None
     summary: str | None = None
     category: str | None = None
+
+
+class ArticleRead(Article):
+    id: int
