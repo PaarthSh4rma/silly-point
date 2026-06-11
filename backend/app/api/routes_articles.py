@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 
 from app.db import get_db
 from app.repositories.article_repository import ArticleRepository
-from app.schemas.article import Article
 from app.services.article_service import ArticleService
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -33,21 +32,3 @@ def fetch_news(db: Session = Depends(get_db)):
             for article in saved_articles
         ],
     }
-
-
-@router.get("/articles", response_model=list[Article])
-def get_articles(db: Session = Depends(get_db)):
-    article_repository = ArticleRepository(db)
-    latest_articles = article_repository.get_latest()
-
-    return [
-        Article(
-            title=article.title,
-            url=article.url,
-            source=article.source,
-            published_at=article.published_at,
-            summary=article.summary,
-            category=article.category,
-        )
-        for article in latest_articles
-    ]
