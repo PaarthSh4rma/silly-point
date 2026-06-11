@@ -2,6 +2,10 @@ from fastapi import FastAPI
 
 from app.api.routes_articles import router as article_router
 from app.api.routes_issues import router as issue_router
+from app.db import Base, engine
+from app.models.article import ArticleModel
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Silly Point API",

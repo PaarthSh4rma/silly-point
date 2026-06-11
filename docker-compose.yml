@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: silly-point-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: sillypoint
+      POSTGRES_PASSWORD: sillypoint
+      POSTGRES_DB: silly_point_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - silly_point_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  silly_point_postgres_data:
