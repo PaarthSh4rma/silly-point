@@ -7,6 +7,9 @@ from app.api.routes_public_articles import router as public_article_router
 from app.db import Base, engine
 from app.models.article import ArticleModel
 from app.models.issue import IssueArticleModel, IssueModel
+from app.api.routes_subscribers import admin_router as admin_subscriber_router
+from app.api.routes_subscribers import public_router as public_subscriber_router
+from app.models.subscriber import SubscriberModel
 from fastapi.middleware.cors import CORSMiddleware
 
 Base.metadata.create_all(bind=engine)
@@ -33,6 +36,8 @@ app.include_router(admin_article_router)
 app.include_router(admin_issue_router)
 app.include_router(public_issue_router)
 app.include_router(public_article_router)
+app.include_router(public_subscriber_router)
+app.include_router(admin_subscriber_router)
 
 
 @app.get("/health")
