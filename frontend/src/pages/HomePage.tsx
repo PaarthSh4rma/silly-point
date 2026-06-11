@@ -158,7 +158,7 @@ function TopNav({
                 : "truncate text-xs font-black uppercase tracking-[0.2em] text-emerald-700 sm:text-sm sm:tracking-[0.3em]"
             }
           >
-            Silly Point
+            Outside Edge
           </p>
           <p className={`truncate text-xs sm:text-sm ${getMutedTextClassName(themeMode)}`}>
             The Daily Yorker

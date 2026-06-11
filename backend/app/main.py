@@ -15,7 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="Silly Point API",
+    title="Outside Edge API",
     description="Cricket news, caught daily.",
     version="0.1.0",
 )
